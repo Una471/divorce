@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Reply to Trisha</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; padding: 1rem; }
+  .msg { background: #fce4ec; padding: 1rem; border-radius: 0.8rem; margin-bottom: 1rem; }
+  textarea { width: 100%; padding: 0.5rem; margin: 0.3rem 0; }
+  button { padding: 0.5rem 1rem; background: #e91e8c; color: white; border: none; border-radius: 0.5rem; cursor: pointer; }
+  .reply-box { margin-top: 0.5rem; }
+</style>
+</head>
+<body>
+<h2>💌 Trisha's Answers</h2>
+<div id="messages"></div>
+
+<script>
+const SUPABASE_URL = 'https://zhopjjczzecsordsopue.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpob3BqamN6emVjc29yZHNvcHVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5OTY3NjEsImV4cCI6MjA5ODU3Mjc2MX0.gWu5GiAvpZqBzUA9YpdvlgS-x6aCE9IX3IcETf0FWvo';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+async function loadMessages() {
+  const { data: messages } = await supabase.from('messages').select('*').order('created_at', { ascending: true });
+  const div = document.getElementById('messages');
+  div.innerHTML = '';
+  if (messages) {
+    messages.forEach(msg => {
+      const card = document.createElement('div');
+      card.className = 'msg';
+      card.innerHTML = `
+        <p><strong>Question:</strong> ${msg.question}</p>
+        <p><strong>Answer:</strong> ${msg.answer}</p>
+        <p><strong>Reply:</strong> ${msg.reply || '—'}</p>
+        <div class="reply-box">
+          <textarea id="reply-${msg.id}" rows="2" placeholder="Type your reply...">${msg.reply || ''}</textarea>
+          <button onclick="sendReply(${msg.id})">Send Reply</button>
+        </div>
+        <p style="font-size:0.8rem; color:#888;">${new Date(msg.created_at).toLocaleString()}</p>
+      `;
+      div.appendChild(card);
+    });
+  }
+}
+
+async function sendReply(id) {
+  const reply = document.getElementById('reply-' + id).value;
+  await supabase.from('messages').update({ reply: reply }).eq('id', id);
+  alert('Reply sent! ❤️');
+  loadMessages();
+}
+
+loadMessages();
+</script>
+</body>
+</html>
