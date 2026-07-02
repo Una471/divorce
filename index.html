@@ -489,16 +489,9 @@
     <p class="subtitle">Take your time. You can say No if you want (But you already know the answer.)</p>
     <div id="no-msg"></div>
     <div class="btn-row">
-      <button class="btn btn-yes" onclick="clickYes()">Yes 💖</button>
+      <button class="btn btn-yes" id="yesBtn">Yes 💖</button>
     </div>
-    <button class="btn btn-no" id="noBtn" onclick="clickNo()">No 💀</button>
-  </div>
-  <div class="page-nav">
-    <div class="dot active" id="d1"></div>
-    <div class="dot" id="d2"></div>
-    <div class="dot" id="d3"></div>
-    <div class="dot" id="d35"></div>
-    <div class="dot" id="d4"></div>
+    <button class="btn btn-no" id="noBtn">No 💀</button>
   </div>
 </div>
 
@@ -507,7 +500,7 @@
   <span style="font-size:4rem">🎉💖🎊</span>
   <h2>SHE SAID YES!!</h2>
   <p>Obviously. Because deep down, you knew all along. Welcome to forever, mothowame. 💗</p>
-  <button class="btn btn-yes" onclick="goToPage2()">Continue →</button>
+  <button class="btn btn-yes" id="continueBtn">Continue →</button>
 </div>
 
 <!-- ========== PAGE 2 ========== -->
@@ -516,7 +509,7 @@
     <span class="section-emoji">💗</span>
     <h2 class="page-title">Good choice, mothowame. 😌</h2>
     <p class="page-sub">Now, before you go crush your day, let me remind you of something...</p>
-    <button class="btn btn-yes" id="remindBtn" onclick="showReminder()">Remind me 🌸</button>
+    <button class="btn btn-yes" id="remindBtn">Remind me 🌸</button>
     <div class="letter-content" id="letterContent">
       <p class="letter-line">You matter. Not just to me, but to this world. I know life has thrown a lot at you, but look at you, still standing, still fighting, still growing. I'm proud of you every single day.</p>
       <p class="letter-line">I know I can't be there right now, but that doesn't stop me from thinking about you constantly, Your smile, Your voice, Your cute eyes. The way you hit me with <em>chomi</em> right when I'm trying to be serious and romantic I pretend to be annoyed, but I love every bit of it.</p>
@@ -525,19 +518,12 @@
       <p class="letter-line">Now go be great today. <strong>Your man loves you. ❤️</strong></p>
     </div>
     <div id="nextBtn2" style="display:none; margin-top:1.5rem;">
-      <button class="btn btn-yes" onclick="goToPage3()">Next →</button>
+      <button class="btn btn-yes" id="nextToPage3">Next →</button>
     </div>
-  </div>
-  <div class="page-nav">
-    <div class="dot" id="d1b"></div>
-    <div class="dot active" id="d2b"></div>
-    <div class="dot" id="d3b"></div>
-    <div class="dot" id="d35b"></div>
-    <div class="dot" id="d4b"></div>
   </div>
 </div>
 
-<!-- ========== PAGE 3 - ENHANCED FUN SECTION ========== -->
+<!-- ========== PAGE 3 ========== -->
 <div class="page" id="page3">
   <div class="fun-card">
     <span class="section-emoji">😏</span>
@@ -556,7 +542,7 @@
     <div id="fun-response"></div>
     <div class="interactive-box" id="interactiveBox">
       <textarea id="interactiveInput" rows="3" placeholder="Type your answer here..."></textarea>
-      <button class="btn-submit" onclick="submitAnswer()">Send to baby 💌</button>
+      <button class="btn-submit" id="submitBtn">Send to baby 💌</button>
       <div class="submitted-answer" id="submittedAnswer"></div>
     </div>
     <div id="savedAnswers">
@@ -564,15 +550,8 @@
       <div id="savedAnswersList"></div>
     </div>
     <div style="margin-top:1.5rem;">
-      <button class="btn btn-yes" onclick="goToPage35()">Next →</button>
+      <button class="btn btn-yes" id="nextToPage35">Next →</button>
     </div>
-  </div>
-  <div class="page-nav">
-    <div class="dot" id="d1c"></div>
-    <div class="dot" id="d2c"></div>
-    <div class="dot active" id="d3c"></div>
-    <div class="dot" id="d35c"></div>
-    <div class="dot" id="d4c"></div>
   </div>
 </div>
 
@@ -587,15 +566,8 @@
     </div>
     <p class="photo-caption">This is the face I think about. <strong>Every day.</strong> 💗</p>
     <div style="margin-top:1.5rem;">
-      <button class="btn btn-yes" onclick="goToPage4()">Next →</button>
+      <button class="btn btn-yes" id="nextToPage4">Next →</button>
     </div>
-  </div>
-  <div class="page-nav">
-    <div class="dot" id="d1e"></div>
-    <div class="dot" id="d2e"></div>
-    <div class="dot" id="d3e"></div>
-    <div class="dot active" id="d35e"></div>
-    <div class="dot" id="d4e"></div>
   </div>
 </div>
 
@@ -605,18 +577,11 @@
     <span class="section-emoji">❤️</span>
     <h2 class="page-title">Okay, I'll let you go now.</h2>
     <p style="color:var(--text-light); font-style:italic; margin-bottom:1.5rem; font-size:0.95rem;">But come back whenever you need a reminder. This little corner of the internet is yours. ❤️</p>
-    <button class="btn btn-yes" onclick="closeSite()">Close the website</button>
+    <button class="btn btn-yes" id="closeBtn">Close the website</button>
     <div id="close-msg">
       Go shine, Sadie.<br>
       <strong>Your man believes in you. Always.</strong> 💖
     </div>
-  </div>
-  <div class="page-nav">
-    <div class="dot" id="d1d"></div>
-    <div class="dot" id="d2d"></div>
-    <div class="dot" id="d3d"></div>
-    <div class="dot" id="d35d"></div>
-    <div class="dot active" id="d4d"></div>
   </div>
 </div>
 
@@ -643,24 +608,34 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   }
 })();
 
+// ========== PAGE NAVIGATION ==========
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
 // ========== NO BUTTON ==========
 let noClicks = 0;
 let noScale = 1;
 const noBtn = document.getElementById('noBtn');
 const noMsg = document.getElementById('no-msg');
+
 function positionNoBtn() {
-  const yesBtn = document.querySelector('.btn-yes');
+  const yesBtn = document.getElementById('yesBtn');
   const rect = yesBtn.getBoundingClientRect();
   noBtn.style.top = (rect.top + window.scrollY) + 'px';
   noBtn.style.left = (rect.right + 12) + 'px';
 }
 window.addEventListener('load', positionNoBtn);
 window.addEventListener('resize', positionNoBtn);
+
 noBtn.addEventListener('mouseenter', () => {
   noScale = Math.max(noScale - 0.12, 0.38);
   noBtn.style.transform = `scale(${noScale})`;
   runAway();
 });
+
 function runAway() {
   const margin = 20;
   const maxX = window.innerWidth - noBtn.offsetWidth - margin;
@@ -670,18 +645,10 @@ function runAway() {
   noBtn.style.top = y + 'px';
   noBtn.style.left = x + 'px';
 }
-function clickNo() {
+
+noBtn.addEventListener('click', () => {
   noClicks++;
   runAway();
-  spawnAngryEmojis();
-  noMsg.style.display = 'block';
-  if (noClicks >= 3) {
-    noMsg.textContent = 'Okay, I see you\'re stubborn. But I\'m more stubborn. I\'ll wait. 😌';
-  } else {
-    noMsg.textContent = 'O bua lerago chomi😤 Try again and make the right decision.';
-  }
-}
-function spawnAngryEmojis() {
   const emojis = ['😤','🔥','💢','😡','🔥','😤','💥'];
   for (let i = 0; i < 8; i++) {
     setTimeout(() => {
@@ -694,15 +661,17 @@ function spawnAngryEmojis() {
       setTimeout(() => el.remove(), 2100);
     }, i * 120);
   }
-}
+  noMsg.style.display = 'block';
+  if (noClicks >= 3) {
+    noMsg.textContent = 'Okay, I see you\'re stubborn. But I\'m more stubborn. I\'ll wait. 😌';
+  } else {
+    noMsg.textContent = 'O bua lerago chomi😤 Try again and make the right decision.';
+  }
+});
 
-// ========== YES ==========
-function clickYes() {
+// ========== YES BUTTON ==========
+document.getElementById('yesBtn').addEventListener('click', () => {
   noBtn.style.display = 'none';
-  launchConfetti();
-  setTimeout(() => { document.getElementById('celebration').classList.add('show'); }, 600);
-}
-function launchConfetti() {
   const colors = ['#f06292','#e91e8c','#fff','#f4a261','#ce93d8','#80deea','#ffcc80'];
   for (let i = 0; i < 120; i++) {
     setTimeout(() => {
@@ -720,31 +689,19 @@ function launchConfetti() {
       setTimeout(() => c.remove(), 5000);
     }, i * 25);
   }
-}
+  setTimeout(() => {
+    document.getElementById('celebration').classList.add('show');
+  }, 600);
+});
 
-// ========== PAGE NAV ==========
-function setPage(n) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const pageId = n === 35 ? 'page35' : 'page' + n;
-  document.getElementById(pageId).classList.add('active');
-  const suffixes = ['', 'b', 'c', 'e', 'd'];
-  const pageNums = [1, 2, 3, 35, 4];
-  suffixes.forEach((suffix, idx) => {
-    pageNums.forEach(pn => {
-      const dotId = 'd' + pn + suffix;
-      const dot = document.getElementById(dotId);
-      if (dot) dot.classList.toggle('active', pn === n);
-    });
-  });
-  window.scrollTo(0, 0);
-}
-function goToPage2() { document.getElementById('celebration').classList.remove('show'); setPage(2); }
-function goToPage3() { setPage(3); }
-function goToPage35() { setPage(35); }
-function goToPage4() { setPage(4); }
+// ========== CONTINUE FROM CELEBRATION ==========
+document.getElementById('continueBtn').addEventListener('click', () => {
+  document.getElementById('celebration').classList.remove('show');
+  showPage('page2');
+});
 
 // ========== REMINDER LETTER ==========
-function showReminder() {
+document.getElementById('remindBtn').addEventListener('click', () => {
   document.getElementById('remindBtn').style.display = 'none';
   const content = document.getElementById('letterContent');
   content.style.display = 'block';
@@ -753,11 +710,40 @@ function showReminder() {
     setTimeout(() => {
       line.classList.add('visible');
       if (i === lines.length - 1) {
-        setTimeout(() => { document.getElementById('nextBtn2').style.display = 'block'; }, 600);
+        setTimeout(() => {
+          document.getElementById('nextBtn2').style.display = 'block';
+        }, 600);
       }
     }, i * 400 + 200);
   });
-}
+});
+
+document.getElementById('nextToPage3').addEventListener('click', () => showPage('page3'));
+document.getElementById('nextToPage35').addEventListener('click', () => showPage('page35'));
+document.getElementById('nextToPage4').addEventListener('click', () => showPage('page4'));
+
+// ========== CLOSE ==========
+document.getElementById('closeBtn').addEventListener('click', () => {
+  document.getElementById('closeBtn').style.display = 'none';
+  document.getElementById('close-msg').style.display = 'block';
+  const hearts = ['💖','💗','💓','✨','🌸'];
+  for (let i = 0; i < 20; i++) {
+    setTimeout(() => {
+      const c = document.createElement('div');
+      c.className = 'confetti-piece';
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.top = '-20px';
+      c.style.background = 'transparent';
+      c.style.fontSize = '1.5rem';
+      c.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+      c.style.width = 'auto';
+      c.style.height = 'auto';
+      c.style.animationDuration = (3 + Math.random() * 2) + 's';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 5500);
+    }, i * 80);
+  }
+});
 
 // ========== FUN DATA ==========
 const data = {
@@ -883,8 +869,8 @@ function funAction(type) {
   }
 }
 
-// ========== SUBMIT ANSWER & LOAD FROM SUPABASE ==========
-async function submitAnswer() {
+// ========== SUBMIT ANSWER ==========
+document.getElementById('submitBtn').addEventListener('click', async () => {
   const input = document.getElementById('interactiveInput');
   const submittedAnswer = document.getElementById('submittedAnswer');
   const question = document.getElementById('fun-response').textContent;
@@ -899,12 +885,13 @@ async function submitAnswer() {
     await loadSavedAnswers();
     input.value = '';
   }
-}
+});
 
+// ========== LOAD SAVED ANSWERS ==========
 async function loadSavedAnswers() {
   const savedDiv = document.getElementById('savedAnswers');
   const savedList = document.getElementById('savedAnswersList');
-  const { data: messages, error } = await supabase.from('messages').select('*').order('created_at', { ascending: true });
+  const { data: messages } = await supabase.from('messages').select('*').order('created_at', { ascending: true });
   if (messages && messages.length > 0) {
     savedDiv.style.display = 'block';
     savedList.innerHTML = '';
@@ -926,29 +913,6 @@ async function loadSavedAnswers() {
   }
 }
 window.addEventListener('load', loadSavedAnswers);
-
-// ========== CLOSE ==========
-function closeSite() {
-  document.querySelector('#page4 .btn-yes').style.display = 'none';
-  document.getElementById('close-msg').style.display = 'block';
-  const hearts = ['💖','💗','💓','✨','🌸'];
-  for (let i = 0; i < 20; i++) {
-    setTimeout(() => {
-      const c = document.createElement('div');
-      c.className = 'confetti-piece';
-      c.style.left = Math.random() * 100 + 'vw';
-      c.style.top = '-20px';
-      c.style.background = 'transparent';
-      c.style.fontSize = '1.5rem';
-      c.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-      c.style.width = 'auto';
-      c.style.height = 'auto';
-      c.style.animationDuration = (3 + Math.random() * 2) + 's';
-      document.body.appendChild(c);
-      setTimeout(() => c.remove(), 5500);
-    }, i * 80);
-  }
-}
 </script>
 </body>
 </html>
