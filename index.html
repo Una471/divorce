@@ -560,7 +560,7 @@
       <div class="submitted-answer" id="submittedAnswer"></div>
     </div>
     <div id="savedAnswers">
-      <p style="font-weight: 600; color: var(--deep-rose); margin-bottom: 0.5rem;">📝 Your previous answers:</p>
+      <p style="font-weight: 600; color: var(--deep-rose); margin-bottom: 0.5rem;">📝 Your conversations with baby:</p>
       <div id="savedAnswersList"></div>
     </div>
     <div style="margin-top:1.5rem;">
@@ -883,7 +883,7 @@ function funAction(type) {
   }
 }
 
-// ========== SUBMIT ANSWER TO SUPABASE ==========
+// ========== SUBMIT ANSWER & LOAD FROM SUPABASE ==========
 async function submitAnswer() {
   const input = document.getElementById('interactiveInput');
   const submittedAnswer = document.getElementById('submittedAnswer');
@@ -895,30 +895,29 @@ async function submitAnswer() {
     submittedAnswer.style.animation = 'none';
     void submittedAnswer.offsetWidth;
     submittedAnswer.style.animation = 'fadeInUp 0.4s ease';
-    saveAnswerLocal(question, answer);
-    loadSavedAnswers();
     await supabase.from('messages').insert([{ question: question, answer: answer }]);
+    await loadSavedAnswers();
     input.value = '';
   }
 }
 
-// ========== LOCAL STORAGE ==========
-function saveAnswerLocal(question, answer) {
-  let answers = JSON.parse(localStorage.getItem('trishaAnswers')) || [];
-  answers.push({ question: question, answer: answer, date: new Date().toLocaleString() });
-  localStorage.setItem('trishaAnswers', JSON.stringify(answers));
-}
-function loadSavedAnswers() {
+async function loadSavedAnswers() {
   const savedDiv = document.getElementById('savedAnswers');
   const savedList = document.getElementById('savedAnswersList');
-  let answers = JSON.parse(localStorage.getItem('trishaAnswers')) || [];
-  if (answers.length > 0) {
+  const { data: messages, error } = await supabase.from('messages').select('*').order('created_at', { ascending: true });
+  if (messages && messages.length > 0) {
     savedDiv.style.display = 'block';
     savedList.innerHTML = '';
-    answers.forEach(item => {
+    messages.forEach(item => {
       const card = document.createElement('div');
       card.style.cssText = 'background: rgba(252,228,236,0.4); border-radius: 0.8rem; padding: 0.7rem 1rem; margin-bottom: 0.6rem; font-size: 0.9rem; line-height: 1.5;';
-      card.innerHTML = '<p style="font-weight:600; color:var(--deep-rose); margin-bottom:0.2rem;">' + item.question + '</p><p style="font-style:italic; color:var(--text);">' + item.answer + '</p><p style="font-size:0.75rem; color:var(--text-light); margin-top:0.3rem;">' + item.date + '</p>';
+      let html = '<p style="font-weight:600; color:var(--deep-rose); margin-bottom:0.2rem;">' + item.question + '</p>';
+      html += '<p style="font-style:italic; color:var(--text);">💬 You: ' + item.answer + '</p>';
+      if (item.reply && item.reply.trim() !== '') {
+        html += '<p style="margin-top:0.5rem; padding:0.5rem 0.7rem; background: rgba(240,98,146,0.15); border-radius:0.6rem; color:var(--text);">❤️ Baby\'s reply: ' + item.reply + '</p>';
+      }
+      html += '<p style="font-size:0.75rem; color:var(--text-light); margin-top:0.3rem;">' + new Date(item.created_at).toLocaleString() + '</p>';
+      card.innerHTML = html;
       savedList.appendChild(card);
     });
     savedList.scrollTop = savedList.scrollHeight;
