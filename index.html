@@ -1,3 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trisha 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #f06292;
+    --deep-rose: #e91e8c;
+    --blush: #fce4ec;
+    --soft-pink: #ffd6e7;
+    --cream: #fff9f5;
+    --warm-white: #fffaf8;
+    --text: #3d1a2e;
+    --text-light: #8b5a6e;
+    --gold: #f4a261;
+    --lavender: #e8c5d9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Lora', serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* PAGES */
+  .page {
+    display: none;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  .page.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+  /* FLOATING HEARTS BG */
+  .heart-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .float-heart {
+    position: absolute;
+    font-size: 1.4rem;
+    animation: floatUp linear infinite;
+    opacity: 0.18;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0.18; }
+    100% { transform: translateY(-10vh) rotate(20deg); opacity: 0; }
+  }
+
+  /* PAGE 1 */
+  #page1 {
+    background: linear-gradient(160deg, #fff0f5 0%, #fce4ec 40%, #e8c5d9 100%);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .main-card {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(16px);
+    border-radius: 2.5rem;
+    padding: 3rem 2.5rem 2.5rem;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 8px 48px rgba(240,98,146,0.18), 0 2px 8px rgba(240,98,146,0.08);
+    position: relative;
+    z-index: 1;
+    border: 1.5px solid rgba(240,98,146,0.15);
+  }
+
+  .big-heart {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    30% { transform: scale(1.18); }
+    50% { transform: scale(1.05); }
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+    margin-bottom: 0.5rem;
+  }
+  h1 em { color: var(--deep-rose); font-style: italic; }
+
+  .subtitle {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+
+  .btn {
+    padding: 0.9rem 2.2rem;
+    border: none;
+    border-radius: 999px;
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+  .btn:active { transform: scale(0.97); }
+
+  .btn-yes {
+    background: linear-gradient(135deg, #f06292, #e91e8c);
+    color: white;
+    box-shadow: 0 4px 18px rgba(240,98,146,0.4);
+  }
+  .btn-no {
+    background: white;
+    color: var(--text);
+    border: 2px solid #e0b0c0;
+    position: fixed;
+    transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease;
+    z-index: 999;
+  }
+
+  #no-msg {
+    margin-top: 1.2rem;
+    color: var(--deep-rose);
+    font-size: 0.95rem;
+    min-height: 2.5rem;
+    font-style: italic;
+    display: none;
+  }
+
+  /* EMOJI FLOATERS */
+  .emoji-float {
+    position: fixed;
+    font-size: 1.8rem;
+    pointer-events: none;
+    z-index: 500;
+    animation: emojiRain 2s ease-out forwards;
+  }
+  @keyframes emojiRain {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-120px) rotate(30deg); opacity: 0; }
+  }
+
+  /* PAGE 2 */
+  #page2 {
+    background: linear-gradient(160deg, #fff9f5 0%, #ffe8f0 60%, #fce4ec 100%);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .reminder-card {
+    background: rgba(255,255,255,0.78);
+    backdrop-filter: blur(14px);
+    border-radius: 2.5rem;
+    padding: 2.5rem 2.2rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 8px 40px rgba(240,98,146,0.15);
+    position: relative;
+    z-index: 1;
+    border: 1.5px solid rgba(240,98,146,0.12);
+  }
+
+  .letter-content {
+    display: none;
+    text-align: left;
+    margin-top: 1.5rem;
+  }
+  .letter-line {
+    opacity: 0;
+    transform: translateY(10px);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+    transition: all 0.5s ease;
+  }
+  .letter-line.visible { opacity: 1; transform: none; }
+
+  /* PAGE 3 */
+  #page3 {
+    background: linear-gradient(160deg, #fce4ec 0%, #f3e0f7 50%, #e8c5d9 100%);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .fun-card {
+    background: rgba(255,255,255,0.76);
+    backdrop-filter: blur(14px);
+    border-radius: 2.5rem;
+    padding: 2.5rem 2rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 8px 40px rgba(200,100,160,0.15);
+    z-index: 1;
+    position: relative;
+    border: 1.5px solid rgba(220,130,180,0.15);
+  }
+
+  .option-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+  .btn-option {
+    padding: 0.9rem 0.7rem;
+    background: linear-gradient(135deg, rgba(240,98,146,0.08), rgba(233,30,140,0.06));
+    border: 1.5px solid rgba(240,98,146,0.25);
+    border-radius: 1.2rem;
+    font-family: 'Lora', serif;
+    font-size: 0.92rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1.4;
+  }
+  .btn-option:hover {
+    background: linear-gradient(135deg, rgba(240,98,146,0.18), rgba(233,30,140,0.12));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(240,98,146,0.2);
+  }
+
+  #fun-response {
+    min-height: 3rem;
+    padding: 1rem 1.2rem;
+    background: rgba(252,228,236,0.5);
+    border-radius: 1.2rem;
+    font-style: italic;
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.7;
+    display: none;
+    animation: fadeInUp 0.4s ease;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Hug animation */
+  #hug-anim {
+    display: none;
+    font-size: 3rem;
+    animation: hugPulse 1s ease-in-out 3;
+  }
+  @keyframes hugPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+  }
+
+  /* PAGE 4 */
+  #page4 {
+    background: linear-gradient(160deg, #fff0f5 0%, #fce4ec 60%, #e8c5d9 100%);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .final-card {
+    background: rgba(255,255,255,0.76);
+    backdrop-filter: blur(14px);
+    border-radius: 2.5rem;
+    padding: 3rem 2.5rem;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 8px 48px rgba(240,98,146,0.18);
+    z-index: 1;
+    position: relative;
+    border: 1.5px solid rgba(240,98,146,0.12);
+  }
+
+  #close-msg {
+    display: none;
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--deep-rose);
+    font-style: italic;
+    line-height: 1.8;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  /* CONFETTI */
+  .confetti-piece {
+    position: fixed;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: confettiFall linear forwards;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  .page-nav {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(240,98,146,0.3);
+    transition: background 0.3s;
+  }
+  .dot.active { background: var(--rose); }
+
+  /* CELEBRATION OVERLAY */
+  #celebration {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(252,228,236,0.96), rgba(255,200,220,0.96));
+    z-index: 8000;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    animation: fadeInUp 0.5s ease;
+  }
+  #celebration.show { display: flex; }
+  #celebration h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    color: var(--deep-rose);
+    margin: 1rem 0;
+  }
+  #celebration p {
+    font-size: 1.1rem;
+    color: var(--text);
+    max-width: 400px;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  /* PAGE 3.5 - PHOTO */
+  #page35 {
+    background: linear-gradient(160deg, #fff0f5 0%, #ffe0ec 50%, #f8d0e8 100%);
+    padding: 2rem;
+    text-align: center;
+  }
+  .photo-card {
+    background: rgba(255,255,255,0.78);
+    backdrop-filter: blur(14px);
+    border-radius: 2.5rem;
+    padding: 2.5rem 2rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 8px 40px rgba(240,98,146,0.18);
+    z-index: 1;
+    position: relative;
+    border: 1.5px solid rgba(240,98,146,0.14);
+  }
+  .photo-frame {
+    margin: 1.5rem auto;
+    border-radius: 1.8rem;
+    overflow: hidden;
+    max-width: 320px;
+    box-shadow: 0 8px 32px rgba(240,98,146,0.25), 0 2px 8px rgba(0,0,0,0.08);
+    border: 3px solid rgba(240,98,146,0.25);
+    position: relative;
+  }
+  .photo-frame img {
+    width: 100%;
+    display: block;
+    border-radius: 1.5rem;
+  }
+  .photo-caption {
+    margin-top: 1rem;
+    font-style: italic;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .photo-caption strong { color: var(--deep-rose); font-style: normal; }
+
+  /* RESPONSIVE */
+  @media (max-width: 400px) {
+    .main-card, .reminder-card, .fun-card, .final-card { padding: 2rem 1.2rem; }
+    .option-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 1.3rem; }
+  }
+
+  p { line-height: 1.7; }
+  .section-emoji { font-size: 2.5rem; display: block; margin-bottom: 0.8rem; }
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2rem, 3.5vw, 1.7rem);
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+  .page-sub {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    font-style: italic;
+    margin-bottom: 1.2rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating hearts background -->
+<div class="heart-bg" id="heartBg"></div>
+
+<!-- ========== PAGE 1 ========== -->
+<div class="page active" id="page1">
+  <div class="main-card">
+    <span class="big-heart">💌</span>
+    <h1>Trisha, I know I didn't ask you properly to be my girlfriend back then... <em>but will you be mine forever?</em> 🥺</h1>
+    <p class="subtitle">Take your time. You can say No if you want (But you already know the answer.)</p>
+    <div id="no-msg"></div>
+    <div class="btn-row">
+      <button class="btn btn-yes" onclick="clickYes()">Yes 💖</button>
+    </div>
+    <button class="btn btn-no" id="noBtn" onclick="clickNo()">No 💀</button>
+  </div>
+  <div class="page-nav">
+    <div class="dot active" id="d1"></div>
+    <div class="dot" id="d2"></div>
+    <div class="dot" id="d3"></div>
+    <div class="dot" id="d35"></div>
+    <div class="dot" id="d4"></div>
+  </div>
+</div>
+
+<!-- ========== CELEBRATION ========== -->
+<div id="celebration">
+  <span style="font-size:4rem">🎉💖🎊</span>
+  <h2>SHE SAID YES!!</h2>
+  <p>Obviously. Because deep down, you knew all along. Welcome to forever, mothowame. 💗</p>
+  <button class="btn btn-yes" onclick="goToPage2()">Continue →</button>
+</div>
+
+<!-- ========== PAGE 2 ========== -->
+<div class="page" id="page2">
+  <div class="reminder-card">
+    <span class="section-emoji">💗</span>
+    <h2 class="page-title">Good choice, mothowame. 😌</h2>
+    <p class="page-sub">Now, before you go crush your day, let me remind you of something...</p>
+    <button class="btn btn-yes" id="remindBtn" onclick="showReminder()">Remind me 🌸</button>
+
+<div class="letter-content" id="letterContent">
+  <p class="letter-line">You matter. Not just to me, but to this world. I know life has thrown a lot at you, but look at you, still standing, still fighting, still growing. I'm proud of you every single day.</p>
+  <p class="letter-line">I know I can't be there right now, but that doesn't stop me from thinking about you constantly, Your smile, Your voice, Your cute eyes. The way you hit me with <em>chomi</em> right when I'm trying to be serious and romantic I pretend to be annoyed, but I love every bit of it.</p>
+  <p class="letter-line">You make my life better, Trisha. Not because you're perfect, but because you're you.</p>
+  <p class="letter-line">So on the days when you feel low, or lonely, or like you're not enough, come back here and read this. Somewhere out there, someone thinks the world of you.</p>
+  <p class="letter-line">Now go be great today. <strong>Your man loves you. ❤️</strong></p>
+</div>
+
+    <div id="nextBtn2" style="display:none; margin-top:1.5rem;">
+      <button class="btn btn-yes" onclick="goToPage3()">Next →</button>
+    </div>
+  </div>
+  <div class="page-nav">
+    <div class="dot" id="d1b"></div>
+    <div class="dot active" id="d2b"></div>
+    <div class="dot" id="d3b"></div>
+    <div class="dot" id="d35b"></div>
+    <div class="dot" id="d4b"></div>
+  </div>
+</div>
+
+<!-- ========== PAGE 3 - ENHANCED FUN SECTION ========== -->
+<div class="page" id="page3">
+  <div class="fun-card">
+    <span class="section-emoji">😏</span>
+    <h2 class="page-title">While you're here... wanna play a little?</h2>
+
+    <div class="option-grid">
+      <button class="btn-option" onclick="funAction('compliment')">Compliment me 🌸</button>
+      <button class="btn-option" onclick="funAction('love')">Remind me why you love me 🥺</button>
+      <button class="btn-option" onclick="funAction('random')">Tell me something random 💀</button>
+      <button class="btn-option" onclick="funAction('hug')">Give me a virtual hug 🫂</button>
+      <button class="btn-option" onclick="funAction('rizz')">Rizz me up 😏🔥</button>
+      <button class="btn-option" onclick="funAction('spicy')">Spicy convos 🌶️</button>
+      <button class="btn-option" onclick="funAction('connect')">Connect with me 🫶🏿</button>
+      <button class="btn-option" onclick="funAction('game')">Play a game 🎮</button>
+    </div>
+    <div id="hug-anim">🫂</div>
+    <div id="fun-response"></div>
+    <div style="margin-top:1.5rem;">
+      <button class="btn btn-yes" onclick="goToPage35()">Next →</button>
+    </div>
+  </div>
+  <div class="page-nav">
+    <div class="dot" id="d1c"></div>
+    <div class="dot" id="d2c"></div>
+    <div class="dot active" id="d3c"></div>
+    <div class="dot" id="d35c"></div>
+    <div class="dot" id="d4c"></div>
+  </div>
+</div>
+
+<!-- ========== PAGE 3.5 - PHOTO ========== -->
+<div class="page" id="page35">
+  <div class="photo-card">
+    <span class="section-emoji">📸</span>
+    <h2 class="page-title">My favourite picture of you</h2>
+    <p class="page-sub">Every time I see this, I smile. Every. Single. Time.</p>
+    <div class="photo-frame">
+      <img src="images/trisha.jpg" alt="Trisha 💖" onerror="this.parentElement.innerHTML='<div style=\'padding:3rem 1rem; color:var(--text-light); font-style:italic; font-size:0.9rem;\'>📷 Place your photo at<br><strong style=\'color:var(--deep-rose)\'>images/trisha.jpg</strong><br>next to this HTML file</div>'">
+    </div>
+    <p class="photo-caption">This is the face I think about. <strong>Every day.</strong> 💗</p>
+    <div style="margin-top:1.5rem;">
+      <button class="btn btn-yes" onclick="goToPage4()">Next →</button>
+    </div>
+  </div>
+  <div class="page-nav">
+    <div class="dot" id="d1e"></div>
+    <div class="dot" id="d2e"></div>
+    <div class="dot" id="d3e"></div>
+    <div class="dot active" id="d35e"></div>
+    <div class="dot" id="d4e"></div>
+  </div>
+</div>
+
+<!-- ========== PAGE 4 ========== -->
+<div class="page" id="page4">
+  <div class="final-card">
+    <span class="section-emoji">❤️</span>
+    <h2 class="page-title">Okay, I'll let you go now.</h2>
+    <p style="color:var(--text-light); font-style:italic; margin-bottom:1.5rem; font-size:0.95rem;">But come back whenever you need a reminder. This little corner of the internet is yours. ❤️</p>
+    <button class="btn btn-yes" onclick="closeSite()">Close the website</button>
+    <div id="close-msg">
+      Go shine, Sadie.<br>
+      <strong>Your man believes in you. Always.</strong> 💖
+    </div>
+  </div>
+  <div class="page-nav">
+    <div class="dot" id="d1d"></div>
+    <div class="dot" id="d2d"></div>
+    <div class="dot" id="d3d"></div>
+    <div class="dot" id="d35d"></div>
+    <div class="dot active" id="d4d"></div>
+  </div>
+</div>
+
 <script>
 // ---- HEARTS BACKGROUND ----
 (function() {
@@ -12,35 +579,6 @@
     h.style.animationDelay = (Math.random() * 10) + 's';
     h.style.fontSize = (0.8 + Math.random() * 1.4) + 'rem';
     bg.appendChild(h);
-  }
-})();
-
-// ---- DAILY REFRESH ----
-(function() {
-  const day = new Date().getDay();
-  const dailySection = document.getElementById('dailySection');
-  const dailyLabel = document.getElementById('dailyLabel');
-  const dailyContent = document.getElementById('dailyContent');
-  const dailyEmoji = document.getElementById('dailyEmoji');
-  const dailyTitle = document.getElementById('dailyTitle');
-  
-  const dailies = [
-    { emoji: '☀️', label: 'Sunday Motivation', title: 'A little Sunday love for you 💛', content: 'New week loading... let me remind you: you are capable of amazing things. This week is yours, Trisha. Go claim it.' },
-    { emoji: '💼', label: 'Monday Pep Talk', title: 'Monday blues? Not on my watch 😤', content: 'I know Mondays can be heavy. But you showed up. That\'s already winning. Keep going, mothowame. I\'m cheering for you.' },
-    { emoji: '💪', label: 'Tuesday Reminder', title: 'You\'re halfway through the week!', content: 'Take a deep breath. You\'ve already survived two days. The rest is downhill. You\'ve got this, my little chimpanzee. 😌' },
-    { emoji: '🌸', label: 'Wednesday Boost', title: 'Midweek magic for my favorite person', content: 'Wednesday is just a reminder that the weekend is getting closer. Keep pushing. I believe in you more than you know.' },
-    { emoji: '🎉', label: 'Thursday Energy', title: 'Almost there, baby!', content: 'One more day until Friday. You\'ve been working so hard. I see you. I\'m proud of you. Now finish strong. 💪' },
-    { emoji: '😏', label: 'Friday Flirt', title: 'Weekend vibes loading...', content: 'It\'s Friday, chomi. You know what that means. Time to relax, be silly, and think about me. 😏 Can\'t wait for the day we spend weekends together.' },
-    { emoji: '🫶🏿', label: 'Saturday Slowdown', title: 'Rest. You deserve it.', content: 'No alarms. No reports. No inspections. Just you, your bed, and maybe some ice cream. Enjoy every second. You\'ve earned this.' }
-  ];
-  
-  const today = dailies[day];
-  if (today && dailySection && dailyLabel && dailyContent && dailyEmoji && dailyTitle) {
-    dailySection.style.display = 'block';
-    dailyEmoji.textContent = today.emoji;
-    dailyTitle.textContent = today.title;
-    dailyLabel.textContent = today.label;
-    dailyContent.textContent = today.content;
   }
 })();
 
@@ -312,3 +850,5 @@ function closeSite() {
   }
 }
 </script>
+</body>
+</html>
